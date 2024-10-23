@@ -1,0 +1,11 @@
+Two exports/imports:
+1)Named export
+2)Defalut export
+
+
+React - 2 ways
+1)cra 
+2)vite
+
+npx - 
+npm 
