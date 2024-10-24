@@ -1,6 +1,7 @@
 import "./App.css";
 import FirstComponent from "./components/FirstComponent";
-import secComponent from "./components/secComponent";
+import StateComponent from "./components/StateComponent";
+
 function App() {
   console.log("hi");
   return (
@@ -8,7 +9,7 @@ function App() {
       <h1>Day 2</h1>
       <p>Some text</p>
       <FirstComponent />
-      <secComponent />
+      <StateComponent />
     </>
   );
 }
