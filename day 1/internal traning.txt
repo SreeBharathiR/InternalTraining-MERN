@@ -9,3 +9,10 @@ React - 2 ways
 
 npx - 
 npm 
+
+
+hooks - react functions 
+
+hooks  - useState (State management) -function 
+
+[state, state updating function]
