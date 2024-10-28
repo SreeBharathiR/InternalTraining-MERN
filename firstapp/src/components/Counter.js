@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
+import Button from "./Button";
+import CounterContext from "../context/CounterContext";
 
-const Counter = ({ children, data }) => {
+const Counter = () => {
+  const { count } = useContext(CounterContext);
   return (
     <div>
-      <h1>Count :{data} </h1>
+      <h1>Count :{count} </h1>
 
-      {children}
-      {/* <Button text="Increment" func={add} />
-      <Button text="Decrement" func={sub} disable={data < 1 ? true : false} /> */}
+      <Button />
     </div>
   );
 };

@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
+import CounterContext from "../context/CounterContext";
 
-const Button = ({ text, func, disable }) => {
+const Button = () => {
+  const { increment, decrement, count } = useContext(CounterContext);
   return (
-    <button onClick={func} disabled={disable}>
-      {text}
-    </button>
+    <>
+      <button onClick={increment}>Increment</button>
+      <button onClick={decrement} disabled={count < 1 ? true : false}>
+        Decrement
+      </button>
+    </>
   );
 };
 

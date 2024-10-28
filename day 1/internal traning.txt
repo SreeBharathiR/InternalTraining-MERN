@@ -16,3 +16,29 @@ hooks - react functions
 hooks  - useState (State management) -function 
 
 [state, state updating function]
+
+props - two ways import 
+1) single name
+2)destructuring
+
+
+hook - useEffect - no return 
+
+3 use: 
+1) continously running
+2)one time
+3) dependies changes
+
+props drilling - 3 methods
+
+1) Component composition
+2) context api
+3)redux - third library
+
+context api -
+
+1) create context
+2) provide value
+3) using the context
+
+hook -useReducer (State management)
