@@ -42,3 +42,6 @@ context api -
 3) using the context
 
 hook -useReducer (State management)
+
+
+const [currentState,dispatch]=useReducer(reducerFuc,initialState)
