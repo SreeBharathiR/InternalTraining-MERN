@@ -22,6 +22,7 @@ props - two ways import
 2)destructuring
 
 
+
 hook - useEffect - no return 
 
 3 use: 
@@ -47,3 +48,9 @@ hook -useReducer (State management)
 const [currentState,dispatch]=useReducer(reducerFuc,initialState)
 
 hook - useRef
+
+router-
+
+1)BrowserRouter 
+2)Routes (v6) - Switch (v5)
+3)Route 
