@@ -3,12 +3,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 
 const Home = () => {
-  return (
-    <div>
-      <Header />
-      Home<Footer></Footer>
-    </div>
-  );
+  return <div>Home</div>;
 };
 
 export default Home;
