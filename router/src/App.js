@@ -6,22 +6,55 @@ import Error from "./components/Error";
 import Param from "./components/Param";
 import Layout from "./components/Layout";
 import Login from "./components/Login";
+import { AuthProvider } from "./context/AuthContext";
+import ProtectiveRoute from "./components/ProtectiveRoute";
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="/about" element={<About />} caseSensitive />
-            <Route path="/:productId" element={<Param />} />
-            <Route path="/:meetId" element={<Param />} />
-          </Route>
-          <Route path="/login" element={<Login />} />
-          <Route path="*" element={<Error />} />
-        </Routes>
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route
+                index
+                element={
+                  <ProtectiveRoute>
+                    <Home />
+                  </ProtectiveRoute>
+                }
+              />
+              <Route
+                path="/about"
+                element={
+                  <ProtectiveRoute>
+                    <About />
+                  </ProtectiveRoute>
+                }
+                caseSensitive
+              />
+              <Route
+                path="/:productId"
+                element={
+                  <ProtectiveRoute>
+                    <Param />
+                  </ProtectiveRoute>
+                }
+              />
+              <Route
+                path="/:meetId"
+                element={
+                  <ProtectiveRoute>
+                    <Param />
+                  </ProtectiveRoute>
+                }
+              />
+            </Route>
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<Error />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
     </div>
   );
 }
