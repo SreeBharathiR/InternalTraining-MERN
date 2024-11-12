@@ -54,3 +54,9 @@ router-
 1)BrowserRouter 
 2)Routes (v6) - Switch (v5)
 3)Route 
+
+
+fetch - request - obj -> json 
+      - response - json -> obj
+
+axios - automatically covertable
