@@ -60,3 +60,26 @@ fetch - request - obj -> json
       - response - json -> obj
 
 axios - automatically covertable
+
+
+
+MongoDB
+
+BSON - Binary JSON
+
+Installtion -
+1)MongoDB server 
+2)MongoDB shell
+3)MongoDB compass - GUI
+4)MongoDB atlas
+
+shell - delete,update,operator
+
+
+CRUD  - Create (POST), read (GET), update (PUT,PATCH), Delete (DELETE)
+
+MVC - > Model (entity) - struction of collection or table, view - user interface (csr,ssr), Controller - all logics
+
+
+model - create
+
