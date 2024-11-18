@@ -2,13 +2,9 @@ import express from "express";
 import { config } from "dotenv";
 import { connect } from "mongoose";
 import morgan from "morgan";
-import {
-  createStudentUser,
-  getAllStudentUser,
-  getStudentByEmail,
-  getStudentById,
-  UpdateStudentUser,
-} from "./Controllers/userController.js";
+import userRoutes from "./routes/userRoutes.js";
+import errorHandler from "./middlewares/errorHandler.js";
+import errorController from "./middlewares/errorController.js";
 
 const app = express();
 app.use(morgan("dev"));
@@ -30,8 +26,6 @@ const DBConnection = async () => {
 };
 DBConnection();
 
-app.get("/studentusers", getAllStudentUser);
-app.get("/studentusers/email", getStudentByEmail);
-app.put("/studentusers/:id", UpdateStudentUser);
-app.get("/studentusers/:id", getStudentById);
-app.post("/studentusers", createStudentUser);
+app.use("/studentusers", userRoutes);
+app.use(errorHandler);
+app.use("*", errorController);

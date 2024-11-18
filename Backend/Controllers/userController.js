@@ -1,33 +1,54 @@
 import User from "../Models/User.js";
-export async function getAllStudentUser(req, res) {
+export async function getAllStudentUser(req, res, next) {
   try {
-    const users = await User.find();
+    const { sort, fields, page, limit, ...filterFields } = req.query;
+    //filtering
+    console.log(typeof filterFields);
+    let queryUser = User.find(filterFields);
+    //sorting
+    console.log(typeof sort);
+    if (sort) {
+      const sortBy = sort.split(",").join(" ");
+      queryUser = queryUser.sort(sortBy);
+      console.log(queryUser);
+    }
+    // limiting fields
+    if (fields) {
+      const fieldStr = fields.split(",").join(" ");
+      queryUser = queryUser.select(fieldStr);
+    }
+    //pagenation
+    const PageNum = page * 1;
+    const limitNum = limit * 1;
+    const skipNum = (PageNum - 1) * limitNum;
+    queryUser = queryUser.skip(skipNum).limit(limitNum);
+    const users = await queryUser;
     res.status(200).json({
       message: "Success",
       users,
     });
   } catch (err) {
-    res.status(500).json({
-      message: err.message,
-    });
+    next(err);
   }
 }
-export async function getStudentById(req, res) {
+export async function getStudentById(req, res, next) {
   console.log(req.params.id);
   try {
     const user = await User.findById(req.params.id);
-
-    res.status(200).json({
-      message: "Success",
-      user,
+    if (user) {
+      return res.status(200).json({
+        message: "Success",
+        user,
+      });
+    }
+    return res.status(404).json({
+      message: "User not found",
     });
   } catch (err) {
-    res.status(500).json({
-      message: err.message,
-    });
+    next(err);
   }
 }
-export async function getStudentByEmail(req, res) {
+export async function getStudentByEmail(req, res, next) {
   console.log(req.body.email);
   try {
     const user = await User.findOne({ email: req.body.email });
@@ -37,33 +58,21 @@ export async function getStudentByEmail(req, res) {
       user,
     });
   } catch (err) {
-    res.status(500).json({
-      message: err.stack,
-    });
+    next(err);
   }
 }
-export async function createStudentUser(req, res) {
-  const { name, email, password } = req.body;
+export async function createStudentUser(req, res, next) {
   try {
-    const IsUserExits = await User.findOne({ email: req.body.email });
-    if (!IsUserExits) {
-      const user = await User.create({ name, email, password });
-
-      return res.status(201).json({
-        message: "Success",
-        user,
-      });
-    }
-    res.status(400).json({
-      message: "User Aldready exist",
+    const user = await User.create(req.body);
+    res.status(201).json({
+      message: "Success",
+      user,
     });
   } catch (err) {
-    res.status(500).json({
-      message: err.stack,
-    });
+    next(err);
   }
 }
-export async function UpdateStudentUser(req, res) {
+export async function UpdateStudentUser(req, res, next) {
   const { name, email, password } = req.body;
   try {
     const user = await User.findByIdAndUpdate(req.params.id, {
@@ -77,8 +86,6 @@ export async function UpdateStudentUser(req, res) {
       user,
     });
   } catch (err) {
-    res.status(500).json({
-      message: err.stack,
-    });
+    next(err);
   }
 }
