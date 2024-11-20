@@ -7,13 +7,14 @@ import {
   getStudentById,
   UpdateStudentUser,
 } from "../Controllers/userController.js";
-import protect from "../middlewares/protect.js";
+
+import { authorize } from "../Controllers/authController.js";
 const userRoutes = Router();
 
-userRoutes.get("/", protect, getAllStudentUser);
-userRoutes.get("/email", getStudentByEmail);
-userRoutes.get("/:id", getStudentById);
-userRoutes.put("/:id", UpdateStudentUser);
-userRoutes.post("/", createStudentUser);
+userRoutes.get("/", authorize("admin", "manager"), getAllStudentUser);
+userRoutes.get("/email", authorize("admin", "manager"), getStudentByEmail);
+userRoutes.get("/:id", authorize("admin"), getStudentById);
+userRoutes.put("/:id", authorize("admin"), UpdateStudentUser);
+userRoutes.post("/", authorize("admin"), createStudentUser);
 
 export default userRoutes;

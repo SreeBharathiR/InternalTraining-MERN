@@ -30,7 +30,7 @@ export async function login(req, res, next) {
     });
   }
   const token = jwt.sign(
-    { userId: user._id, email: user.email }, //payload
+    { userId: user._id, email: user.email, role: user.role }, //payload
     process.env.JWT_SECRETKEY, //scret key
     { expiresIn: process.env.JWT_EXPIRETIME } //option
   );
@@ -49,4 +49,24 @@ export async function logout(req, res) {
   res.status(200).json({
     message: "Logged Out Succesfully",
   });
+}
+
+// export async function authorizeAdmin(req, res, next) {
+//   if (req.user.role !== "admin") {
+//     return res.status(403).json({
+//       message: "You don't have access for this end point",
+//     });
+//   }
+//   next();
+// }
+
+export function authorize(...roles) {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return res.status(403).json({
+        message: "You don't have access for this end point",
+      });
+    }
+    next();
+  };
 }

@@ -7,9 +7,17 @@ import errorHandler from "./middlewares/errorHandler.js";
 import errorController from "./middlewares/errorController.js";
 import authRouter from "./routes/authRoutes.js";
 import cookieParser from "cookie-parser";
+import protect from "./middlewares/protect.js";
+import cors from "cors";
 const app = express();
 app.use(morgan("dev"));
 config();
+app.use(
+  cors({
+    origin: "http://localhost:3001",
+    credentials: true,
+  })
+);
 app.use(cookieParser());
 app.use(express.json());
 app.listen(process.env.PORT, () => {
@@ -28,7 +36,7 @@ const DBConnection = async () => {
 };
 DBConnection();
 
-app.use("/studentusers", userRoutes);
+app.use("/studentusers", protect, userRoutes);
 app.use("/auth", authRouter);
 app.use(errorHandler);
 app.use("*", errorController);
