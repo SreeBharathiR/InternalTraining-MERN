@@ -21,7 +21,7 @@ const errorHandler = (err, req, res, next) => {
   }
   res.status(500).json({
     message: "Failed",
-    err,
+    error: err.stack,
   });
 };
 export default errorHandler;

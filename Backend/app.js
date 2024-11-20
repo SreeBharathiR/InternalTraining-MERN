@@ -5,10 +5,12 @@ import morgan from "morgan";
 import userRoutes from "./routes/userRoutes.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import errorController from "./middlewares/errorController.js";
-
+import authRouter from "./routes/authRoutes.js";
+import cookieParser from "cookie-parser";
 const app = express();
 app.use(morgan("dev"));
 config();
+app.use(cookieParser());
 app.use(express.json());
 app.listen(process.env.PORT, () => {
   console.log("Server is running");
@@ -27,5 +29,6 @@ const DBConnection = async () => {
 DBConnection();
 
 app.use("/studentusers", userRoutes);
+app.use("/auth", authRouter);
 app.use(errorHandler);
 app.use("*", errorController);

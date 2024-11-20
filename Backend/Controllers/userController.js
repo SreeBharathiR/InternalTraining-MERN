@@ -1,10 +1,14 @@
 import User from "../Models/User.js";
 export async function getAllStudentUser(req, res, next) {
+  console.log(req.user);
   try {
+    let queryUser = User.find();
     const { sort, fields, page, limit, ...filterFields } = req.query;
     //filtering
     console.log(typeof filterFields);
-    let queryUser = User.find(filterFields);
+    if (filterFields) {
+      queryUser = User.find(filterFields);
+    }
     //sorting
     console.log(typeof sort);
     if (sort) {
@@ -31,6 +35,7 @@ export async function getAllStudentUser(req, res, next) {
     next(err);
   }
 }
+
 export async function getStudentById(req, res, next) {
   console.log(req.params.id);
   try {
